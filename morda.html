@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Webpage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      html, body {
+        overflow: hidden;
+      }
+
+      body {
+        background-color: beige;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', sans-serif;
+        color: white;
+        height: 100vh;
+        position: relative
+      }
+      
+      .falling-image {
+        position: absolute;
+        width: 20%;
+        height: 10%;
+        animation: falling 2s linear infinite;
+        z-index: -1;
+        border-radius: 50%;
+        box-shadow: 0 0 5px #ff8c00;
+      }
+      
+      @media (max-width: 600px) {
+        .falling-image {
+          width: 20%;
+          height: 10%;
+        }
+      }
+      
+      @keyframes falling {
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(98vh);
+        }
+      }
+
+      @keyframes top-text-anim {
+        0% {
+          opacity: 0;
+        }
+        30% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0.99;
+        }
+      }
+
+      @keyframes bottom-text-anim {
+        0% {
+          opacity: 0;
+          top: 80%;
+        }
+        30% {
+          opacity: 1;
+          top: 70%;
+        }
+        100% {
+          opacity: 0.99;
+          top: 70%;
+        }
+      }
+
+      @keyframes main-image-anim {
+        0% {
+          opacity: 0;
+          top: 50%;
+        }
+        30% {
+          opacity: 1;
+          top: 40%;
+        }
+        100% {
+          opacity: 0.99;
+          top: 40%;
+        }
+      }
+
+      .main-image {
+        max-width: 70%;
+        max-height: 70%;
+        width: 70%;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        opacity: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 10px solid #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 15px #ff8c00;
+        animation-name: main-image-anim;
+        animation-duration: 3s;
+        animation-delay: 2s;
+        animation-fill-mode: forwards;
+      }
+
+      .text-box {
+        position: absolute;
+        opacity: 0;
+        max-width: 80%;
+        width: 75%;
+        padding: 20px;
+        background-color: #fff;
+        color: #000;
+        font-weight: bold;
+        border-radius: 5px;
+        box-shadow: 0 0 15px #ff8c00;
+        text-align: center;
+      }
+
+      .text-box-top {
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        animation-name: top-text-anim;
+        animation-duration: 5s;
+        animation-delay: 3s;
+        animation-fill-mode: forwards;
+      }
+
+      .text-box-bottom {
+        top: 53%;
+        left: 50%;
+        transform: translateX(-50%);
+        animation-name: bottom-text-anim;
+        animation-duration: 5s;
+        animation-delay: 4s;
+        animation-fill-mode: forwards;
+      }
+
+    </style>
+  </head>
+  <body>
+    <img class = "main-image" src="loodMackOne.jpg" alt="goodMack">
+    <div class="text-box text-box-bottom">Smacznego Louda</div>
+    <audio controls autoplay>
+      <source src="levanPollkaDrums.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <script>
+      // Create an array to hold the falling image elements
+      const fallingImages = [];
+
+      // Define a function to create a new falling image element and add it to the page
+      function createFallingImage() {
+        const img = document.createElement('img');
+        img.src = 'loodMack.jpg';
+        img.alt = 'Falling image';
+        img.classList.add('falling-image');
+        img.style.left = Math.random() * window.innerWidth * 0.90 + 'px';
+        document.body.appendChild(img);
+        fallingImages.push(img);
+
+        
+        // Remove the element from the DOM and from the fallingImages array after 4 seconds
+        setTimeout(() => {
+            img.remove();
+            fallingImages.splice(fallingImages.indexOf(img), 1);
+          }, 4000);
+          
+      }
+
+      // Call the createFallingImage function every 100 milliseconds to add more falling images to the page
+      setInterval(createFallingImage, 200);
+    </script>
+  </body>
+</html>
